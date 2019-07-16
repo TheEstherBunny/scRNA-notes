@@ -1,0 +1,87 @@
+\documentclass[a4paper,12pt]{article}
+
+\title{scRNA-seq analysis - some keywords and definitions}
+\author{Esthy Hung} 
+\date{\today}
+
+
+\begin{document}
+\maketitle
+\section{Introduction}
+All of one individual’s cells share the same DNA, but they perform very different functions. The differences lie in gene expression, the translation of DNA through RNA to functional proteins. The RNA present in a cell is therefore intimately connected to the cell’s behaviour. Counts of RNA molecules determine what a cell is doing, what other cells it resembles, and what those cells might do in the future. These RNA measurements were first done in bulk by extracting RNA from a tissue, which gives an average of the expression levels across the sample. More recent techniques allow this to be done at a single cell level, producing counts of individual RNA molecules within individual cells.
+\paragraph{}
+Such single cell analysis enables precise, fine-tuned distinctions between cell types within the same tissue, with extensive applications across biology and medicine.  Gene expression signatures can, for example, be used to identify pluripotent stem cells or malignant tumour cells and their precursors. Understanding the signs of cancer would lead to earlier, more accurate diagnosis and better treatment. However, despite significant progress in developing methods for single-cell RNA sequencing, neither the underlying experimental procedures nor the required inference methods are sufficiently well understood. I propose to work on both problems in parallel.
+
+\paragraph{Gene expression:} Translation of DNA through RNA to functional proteins
+\paragraph{Count and read matrices:}
+\paragraph{Transcriptome:} The set of all RNA molecules in one cell or a population of cells
+\paragraph{Cell cycle:}
+\paragraph{Marker genes:} Genes up-regulated in cluster compared to all other clusters.
+\paragraph{Cell scoring:}
+\paragraph{Mean expression:}
+\paragraph{Pseudotime analysis:}
+\paragraph{Metastable states:}
+
+
+
+
+
+
+
+
+\section{scRNA-seq analysis:}
+
+\begin{enumerate}
+\item Pre-processing
+\begin{itemize}
+\item \textbf{Quality control} - How we ensure that all cellular barcode data correspond to viable cells, and that data quality is sufficient for downstream analysis. All three co-variates should be considered jointly when univariate thresholding decisions are made.Three QC Covariates:
+\begin{itemize}
+\item Count depth: no. counts per barcode
+\item No. genes per barcode
+\item Fraction of counts from mitochondrial genes per barcode
+\end{itemize}
+\item \textbf{Normalisation} - Process of scaling count data to obtain correct relative gene expression abundances between cells to enable comparison between samples.
+\item \textbf{Data correction} -  targets further technical and biological covariates like batch, dropout, or cell cycle effect. We consider correction of these effects separately.
+\item \textbf{Feature selection} - Process of filtering out and keeping genes that are 'informative' of variability in the data. Highly variable genes (HGVs) are usually used. Genes with highest variance-to-mean ratio are selected as HGVs in each bin. This is preferably done after technical data correction.
+\item \textbf{Dimensionality reduction} - The biological manifold on which cellular expressions lie can be sufficiently described by far fewer dimensions than the number of genes; dimensionality reduction aims to find these dimensions.
+\end{itemize}
+\item \textbf{Downstream Analysis:} - Obtaining descriptions of the underlying biological system described by the data by fitting interpretable models. Cell- and gene-levels are considered.
+\begin{itemize}
+\item \textbf{Cluster Analysis:} The attempt to explain the heterogeneity in the data based on a categorisation of cells into groups.
+\item \textbf{Compositional Analysis:}
+At cell level, we can analyse clustered data in terms of compositional structure - looking at the proportion of cells that fall into each cell-identity cluster. These proportions can change in response to disease.
+Statistical tests over changes in the proportion of a cell-identity cluster between samples are dependent on one another.
+\item \textbf{Trajectory analysis}
+We regard data as a snapshot of  dynamic process and investigate the underlying process. \textit{Trajectory inference:}
+Required in order to capture transitions between cell identities, branching differentiation processes, or gradual, unsynchronised changes in biological function, using dynamic models of gene expression.
+\end{itemize}
+\end{enumerate}
+\section{Trajectory inference:} When we have multiple trajectories in data. We find trajectory struture in data first before pseudotime can be inferred along each trajectory. Recommended: Slingshot, Monocle2, Diffusion Pseudotime
+\paragraph{Pseudotime variable:} describes the ordering of cells along paths
+\paragraph{PAGA:} Partition-based Graph Abstraction.
+\begin{itemize}
+\item Recommended TI method for trajectories expected that are more complex .
+\item Used to reconcile clustering and pseudotemporal ordering.
+\item Can apply to whole dataset - no assumptions of continuous trajectories connecting all clusters \end{itemize}
+\paragraph{Slingshot:} - Recommended fo simple trajectories ranging from linear to bi- and multi-furcating models
+\begin{itemize}
+\item Use normalised, log-transformed, batch-corrected data to minimise technical variation in inferred trajectories
+\item TI with fixed endpoints vastly improves trajectory. \end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
