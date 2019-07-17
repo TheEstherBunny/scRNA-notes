@@ -63,10 +63,16 @@ Required in order to capture transitions between cell identities, branching diff
 \item Recommended TI method for trajectories expected that are more complex .
 \item Used to reconcile clustering and pseudotemporal ordering.
 \item Can apply to whole dataset - no assumptions of continuous trajectories connecting all clusters \end{itemize}
-\paragraph{Slingshot:} - Recommended fo simple trajectories ranging from linear to bi- and multi-furcating models
+\paragraph{Slingshot:} - Recommended for simple trajectories ranging from linear to bi- and multi-furcating models
 \begin{itemize}
 \item Use normalised, log-transformed, batch-corrected data to minimise technical variation in inferred trajectories
 \item TI with fixed endpoints vastly improves trajectory. \end{itemize}
+
+
+\subsection{TI Methods details:}
+\paragraph{Slingshot:}
+\begin{itemize} \item Input: Cluster labels. \item orders clusters into lineages by construction of a minimum spanning tree. Paths through the tree are smoothed by fitting simultaneous principal curves and a cell's pseudotime value is determined by its projection onto one or more curves.
+\end{itemize}
 
 
 
